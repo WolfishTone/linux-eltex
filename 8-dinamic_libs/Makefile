@@ -1,4 +1,4 @@
-.PHONY: all abonent password_validate
+.PHONY: all run calc format
 
 SRCS=$(wildcard src/*.c)
 OBJS= $(patsubst src/%.c, obj/%.o, $(SRCS))
@@ -6,7 +6,7 @@ OBJS= $(patsubst src/%.c, obj/%.o, $(SRCS))
 all: calc
 
 run:
-	
+	LD_LIBRARY_PATH=./lib:LD_LIBRARY_PATH ./calc
 
 calc: obj/main.o lib/libcalc.so
 	gcc -Wall -Wextra $< -o $@ -O2 -L./lib -lcalc

@@ -1,4 +1,4 @@
-.PHONY: all abonent password_validate
+.PHONY: all calc format
 
 SRCS=$(wildcard src/*.c)
 OBJS= $(patsubst src/%.c, obj/%.o, $(SRCS))
