@@ -3,17 +3,15 @@
 SRCS=$(wildcard src/*.c)
 OBJS= $(patsubst src/%.c, obj/%.o, $(SRCS))
 
-all: task_1
+all: task_1 sunset-commander
 
-run:
-	LD_LIBRARY_PATH=./lib:LD_LIBRARY_PATH ./calc
-
-task_1: obj/main.o
+task_1: obj/task-1.o
 	gcc -Wall -Wextra $< -o $@
+sunset-commander: obj/sunset-commander.o
+	gcc -Wall -Wextra $< -o $@ -lncurses
 
 obj/%.o : src/%.c
 	gcc -Wall -Wextra -c $^ -o $@ -fPIC
-	
-	
+
 format:
 	clang-format -style=GNU $(SRCS) -i
