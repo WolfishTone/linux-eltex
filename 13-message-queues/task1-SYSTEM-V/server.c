@@ -42,25 +42,14 @@ int main()
 	
 	sprintf(msg.mtext, "Hi!");
 
-	if((msgsnd(msqid, &msg, MTEXT_SIZE , IPC_NOWAIT)) < 0){
+	if((msgsnd(msqid, &msg, MTEXT_SIZE , 0)) < 0){
 		perror("проблема отправки сообщения\n");
 		exit(1);
 	}
 	printf("send message: %s\n", msg.mtext);
 	
-	struct msqid_ds buf;
-	buf.msg_lspid = getpid();
-	
-	while(getpid() == buf.msg_lspid)
-	{
-		if(msgctl(msqid, IPC_STAT, &buf) < 0)
-		{
-			perror("проблема получения состояния очереди\n");
-			exit(1);
-		}
-	}
 			
-	if (msgrcv(msqid, &msg, MTEXT_SIZE, 1, 0) < 0) {
+	if (msgrcv(msqid, &msg, MTEXT_SIZE, 10, 0) < 0) {
 		perror("проблема получения сообщения\n");
 		exit(1);
 	}

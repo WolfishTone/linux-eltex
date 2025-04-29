@@ -31,7 +31,6 @@ int main()
 	}
 	
 	struct msgbuf msg;
-	msg.mtype = 1;
 	
 	if (msgrcv(msqid, &msg, MTEXT_SIZE, 1, 0) < 0) {
 		perror("проблема получения сообщения\n");
@@ -40,6 +39,7 @@ int main()
 
 	printf("recv message: %s\n", msg.mtext);
 	
+	msg.mtype = 10;
 	sprintf(msg.mtext, "Hello!");
 	if((msgsnd(msqid, &msg, strlen(msg.mtext)+1	, IPC_NOWAIT)) < 0){
 		perror("проблема отправки сообщения\n");
