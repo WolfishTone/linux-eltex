@@ -1,0 +1,19 @@
+Задание: fork + poll/epoll/select + timers + IPC
+
+Управление такси.
+
+Есть опорный пункт - исходное приложение. Запускается один раз и привязано к терминалу, имеет CLI.
+
+В CLI должны быть команды create_driver, send_task <pid> <task_timer>, get_status <pid>, get_drivers.
+
+create_driver создает новый процесс (driver), который ожидает команд от CLI, pid процесса будет
+использоваться  для обращения к этому driver.
+
+send_task <pid> <task_timer> создаст задачу для driver номер <pid> и займет его на <task_timer> секунд.
+Если попытаться обратиться к этому driver во время выполнения задания с помощью send_task, то driver
+должен послать ошибку Busy <task_timer>. По истечению <task_timer> секунд driver меняет свое состояние
+на Available.
+
+get_status <pid> показывает статус driver с номером <pid>. Может быть Busy <task_timer> либо Available.
+
+get_drivers показывает статусы и pid всех drivers запущенных из этого инстанса CLI.
